@@ -11,7 +11,8 @@ permalink: /reaction-sequence/
 <p> 
     <input id="feedbackLink" value="Get Feedback" type="button" /> 
     <input id="newInstanceLink" value="Reset Problem" type="button" /> 
-</p> 
+</p>
+<fieldset class="feedbackFieldset"><legend>Feedback:</legend><div id="feedback">
 <script type="text/javascript"> 
 (function(){
   var initial = "FOR each pair of structures:\n" +
@@ -44,7 +45,16 @@ permalink: /reaction-sequence/
   }); 
   $("#feedbackLink").click(function(event){ 
       event.preventDefault(); 
-      parsonsPuzzle.getFeedback(); 
+      var feedback = parsonsPuzzle.getFeedback(); 
+      var message = feedback.html || feedback.feedback;
+      if (!message && feedback.length) {
+          message = feedback.join("\n")
+      }
+      message = message && !feedback.success ? message: "Congratulations, you solved the problem!";
+
+      var feedbackContainer = document.getElementById("feedback");
+      feedbackContainer.innerHTML = message;
+      
   }); 
 })(); 
 </script>
