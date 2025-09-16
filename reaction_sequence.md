@@ -1,8 +1,9 @@
 ---
 layout: page
 title: NMR Problem
-permalink: /NMR-problem/
+permalink: /reaction-sequence/
 ---
+
 
 <div id="sortableTrash" class="sortable-code"></div> 
 <div id="sortable" class="sortable-code"></div> 
@@ -11,16 +12,19 @@ permalink: /NMR-problem/
     <input id="feedbackLink" value="Get Feedback" type="button" /> 
     <input id="newInstanceLink" value="Reset Problem" type="button" /> 
 </p> 
-<div id="feedback"></div>
 <script type="text/javascript"> 
 (function(){
-  var initial = "FOR each NMR spectrum:\n" +
-    "    read in NMR data file(s)\n" +
-    "    extract time from NMR file\n" +
-    "    fit NMR peak of interest\n" +
-    "    extract peak area\n" +
-    "    convert area to concentration\n" +
-    "plot concentration vs time";
+  var initial = "FOR each pair of structures:\n" +
+    "    Determine (summed) distance between equivalent pairs of atoms (e.g. O-O, Br-Br etc).\n" +
+    "Assign largest distance as that between start/end points\n" +
+    "Use starting point as `current` step\n" +
+    "LOOP continuously:\n" +
+    "    Find minimum distance from current step\n" +
+    "    IF not already part of sequence:\n" +
+    "        Assign to sequence.\n" +
+    "    IF next in sequence is the end point:\n" +
+    "        STOP - problem complete.\n" +
+    "    Change `current` step to next in sequence";
   var parsonsPuzzle = new ParsonsWidget({
     "sortableId": "sortable",
     "max_wrong_lines": 10,
