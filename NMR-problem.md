@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: plain
 title: NMR Problem
 permalink: /NMR-problem/
 ---
@@ -49,7 +49,7 @@ permalink: /NMR-problem/
 
       var feedbackContainer = document.getElementById("feedback");
       feedbackContainer.innerHTML = message;
-      
+
   }); 
 })(); 
 </script>
