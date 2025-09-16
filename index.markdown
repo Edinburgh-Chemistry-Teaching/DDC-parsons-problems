@@ -8,7 +8,6 @@ title: Chemistry Parsons Problems
 
 # Parson's Problems in Chemistry
 
-- [README](README.md)
-- [Reaction Sequence](/reaction-sequence/)
+- [Reaction Sequence](reaction-sequence.md)
 - [NMR Problem](NMR-problem.md)
 
