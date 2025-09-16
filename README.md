@@ -1,44 +1,64 @@
 # Hosting Parsons on Github Template
-This repo is a template to help you quickly and easily host Parson's problems on GitHub.
 
-You can use [Codio's graphical Parson's problems generator](https://codio.github.io/parsons-puzzle-ui/dist/) to create the Parson's problems and paste them into this template. [Visit the other repo's main page for help on using the generator.](https://codio.github.io/parsons-puzzle-ui/)
+This repository contains a selection of Parson's Problems used for teaching data-driven chemistry. The template is based on the [Codio Parsons Problems Template](https://github.com/codio-content/hosting-parsons-on-github-template) but with some specific modifications to work with Jupyter Notebooks.
 
-## How to host your own Parson's Problems
 
-1. Create a Github account (if you don't have one already). A free account works great for this!
-
-1. Fork this repo using the "Fork" button 
-
-    ![Fork Button](https://sammyk.s3.amazonaws.com/blog/images/2014-05-28/fork.png)
-    
-1. In **your fork** (it should have your user name after the `github.com/` in the URL bar) click on "Settings":
-
-    ![Settings Tab](https://pages.github.com/images/repo-settings@2x.png)
-    
-1. Set the GitHub Pages Source to Master branch using the drop down:
-
-    ![Set GitHub Pages Source](https://pages.github.com/images/source-setting@2x.png)
-    
-### Test your repo
-
-1. To check that your repo is now setup correctly, return to the "Code" tab on the far left (you can get there by clicking on the repo name at the top too). 
-
-1. Click on the environment button with the rocketship icon on the right-side of the page
-
-    ![Click github-pages link on the right-side of the page](https://raw.githubusercontent.com/codio-content/hosting-parsons-on-github-template/master/Environments.png)
-
-1. Click on the "View Deployment" button - the one at the top is the most recent.
-
-    ![Click on the "View Deployment" button](https://raw.githubusercontent.com/codio-content/hosting-parsons-on-github-template/master/Deployments.png)
-    
 ## How to Add Generated Parson's Problems
 
 1. Use [Codio's graphical Parson's problems generator](https://codio.github.io/parsons-puzzle-ui/dist/) to create a Parson's problem
+2. Click EXPORT in the top left of the online generator and copy the code
+3. Create a new file in this repository (e.g. `my-problem.md`)
+4. At the top of the new file, add the following front matter (customising the title and permalink as appropriate):
+   ``` markdown
+   ---
+   layout: plain
+   title: My Problem Title
+   permalink: /my-problem/
+   ---
+   ```
+4. Paste the Parson's problem code into the new file
+5. If you want to include a feedback box on the problem page, modify the following code 
+    ``` html
+    <p> 
+        <input id="feedbackLink" value="Get Feedback" type="button" /> 
+        <input id="newInstanceLink" value="Reset Problem" type="button" /> 
+    </p>
 
-1. Click EXPORT in the top left
+    <script type="text/javascript"> 
 
-1. Click Switch to Code
+    .... MORE CODE ....
 
-1. (optional) If you are hosting multiple parsons problems on the same page (in the same markdown) then add a unique pre-fix in the textbox at the top and press enter.
+    $("#feedbackLink").click(function(event){ 
+    event.preventDefault(); 
+    parsonsPuzzle.getFeedback(); 
+    ```
 
-1. Copy the code into index.markdown
+    into this:
+
+    ``` html
+    <p> 
+        <input id="feedbackLink" value="Get Feedback" type="button" /> 
+        <input id="newInstanceLink" value="Reset Problem" type="button" /> 
+    </p>
+    <fieldset class="feedbackFieldset"><legend>Feedback:</legend><div id="feedback">
+    <script type="text/javascript"> 
+
+    .... MORE CODE ....
+
+    $("#feedbackLink").click(function(event){ 
+    event.preventDefault(); 
+    var feedback = parsonsPuzzle.getFeedback(); 
+    var message = feedback.html || feedback.feedback;
+    if (!message && feedback.length) {
+        message = feedback.join("\n")
+    }
+    message = message && !feedback.success ? message: "Congratulations, you solved the problem!";
+
+    var feedbackContainer = document.getElementById("feedback");
+    feedbackContainer.innerHTML = message;
+    ```
+6. Add a link to the new problem in `index.markdown` (customising the link text and URL as appropriate):
+   ``` markdown
+   - [My Problem Title](/my-problem/)
+   ```
+7. Commit and push your changes to GitHub. GitHub pages should automatically build the site and your new problem should be available at `https://<your-github-username>.github.io/DDC-parsons-problems/my-problem/`
