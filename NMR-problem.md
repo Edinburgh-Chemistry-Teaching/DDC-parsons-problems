@@ -11,7 +11,7 @@ permalink: /NMR-problem/
     <input id="feedbackLink" value="Get Feedback" type="button" /> 
     <input id="newInstanceLink" value="Reset Problem" type="button" /> 
 </p> 
-<div id="feedback"></div>
+<fieldset class="feedbackFieldset"><legend>Feedback:</legend><div id="feedback">
 <script type="text/javascript"> 
 (function(){
   var initial = "FOR each NMR spectrum:\n" +
@@ -40,7 +40,8 @@ permalink: /NMR-problem/
   }); 
   $("#feedbackLink").click(function(event){ 
       event.preventDefault(); 
-      parsonsPuzzle.getFeedback(); 
+      var feedback = parsonsPuzzle.getFeedback(); 
+      console.log(feedback);
   }); 
 })(); 
 </script>
