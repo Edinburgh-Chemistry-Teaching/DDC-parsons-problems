@@ -41,7 +41,15 @@ permalink: /NMR-problem/
   $("#feedbackLink").click(function(event){ 
       event.preventDefault(); 
       var feedback = parsonsPuzzle.getFeedback(); 
-      console.log(feedback);
+      var message = feedback.html || feedback.feedback;
+      if (!message && feedback.length) {
+          message = feedback.join("\n")
+      }
+      message = message && !feedback.success ? message: "Congratulations, you solved the problem!";
+
+      var feedbackContainer = document.getElementById("feedback");
+      feedbackContainer.innerHTML = message;
+      
   }); 
 })(); 
 </script>
