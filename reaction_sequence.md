@@ -1,6 +1,6 @@
 ---
 layout: page
-title: NMR Problem
+title: Reaction Sequence
 permalink: /reaction-sequence/
 ---
 
